@@ -1,6 +1,6 @@
 import "./projectsList.css";
 
-export function ProjecstList(projects) {
+export function ProjectsList(projects) {
   const projectsListTemplate = document.querySelector("#projects-list");
   const projectsListClone = projectsListTemplate.content.cloneNode(true);
   projectsListClone.querySelector("h2").textContent = "Projects";
