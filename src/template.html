@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todolist</title>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <!-- MODALS -->
+
+  <!-- Task Modal-->
+  <dialog id="task-dialog">
+    <button id="task-dialog-close">Close</button>
+    <form id="task-form">
+      <p>
+        <label for="title">title: </label>
+        <input id="title" name="title" type="text" />
+      </p>
+      <p>
+        <label for="description">description: </label>
+        <textarea id="description" name="description">
+        </textarea>
+      </p>
+      <p>
+        <label for="dueDate">due date: </label>
+        <input id="dueDate" name="dueDate" type="datetime-local" />
+      </p>
+      <p>
+        <label for="priority">priority: </label>
+        <select name="priority" id="priority">
+          <option value="low">low</option>
+          <option value="normal">normal</option>
+          <option value="high">high</option>
+        </select>
+      </p>
+      <p><button type="submit">Valid</button></p>
+    </form>
+  </dialog>
+
+  <!-- Task Edit Modal-->
+  <dialog id="task-edit-dialog">
+    <button id="task-edit-dialog-close">Close</button>
+    <button id="task-delete" class="btn-delete">Delete</button>
+    <form id="task-edit-form">
+      <p>
+        <label for="title">title: </label>
+        <input id="title" name="title" type="text" />
+      </p>
+      <p>
+        <label for="dueDate">due date: </label>
+        <input id="dueDate" name="dueDate" type="datetime-local" />
+      </p>
+      <p>
+        <label for="priority">priority: </label>
+        <select name="priority" id="priority">
+          <option value="low">low</option>
+          <option value="normal">normal</option>
+          <option value="high">high</option>
+        </select>
+      </p>
+      <p>
+        <label for="project-select">projet</label>
+        <select name="projectID" id="project-select"></select>
+      </p>
+      <p><input type="submit" value="submit" /></p>
+    </form>
+  </dialog>
+
+  <!-- Project Modal-->
+  <dialog id="project-dialog">
+    <button id="project-dialog-close">Close</button>
+    <form id="project-form">
+      <p>
+        <label for="name">title: </label>
+        <input id="name" name="name" type="text" />
+      </p>
+      <p><input type="submit" value="submit" /></p>
+    </form>
+  </dialog>
+
+  <!-- Project Edit Modal-->
+  <dialog id="project-edit-dialog">
+    <button id="project-edit-dialog-close">Close</button>
+    <form id="project-edit-form">
+      <p>
+        <label for="title">title: </label>
+        <input id="title" name="title" type="text" />
+      </p>
+      <p><input type="submit" value="submit" /></p>
+    </form>
+  </dialog>
+
+  <!-- TEMPLATES -->
+
+  <!--Template Task List-->
+  <template id="task-list">
+    <div>
+      <ul></ul>
+    </div>
+  </template>
+
+  <!-- Template Task List Item-->
+  <template id="task-list-item">
+    <div draggable="true" id="task-edit" class="task-item">
+      <li id="task-edit"></li>
+    </div>
+  </template>
+
+  <!-- Template Project List Item-->
+  <template id="project-list-item">
+    <li><a href="#" id="project-show"></a></li>
+  </template>
+
+  <!-- Template Project -->
+  <template id="project-details">
+    <div>
+      <div class="board-container">
+        <div class="board-item">
+          <h2>To do</h2>
+          <div id="todo-list" class="task-container">
+            <button id="add-task-btn" class="btn-primary btn-soft">Add Task</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="projects-list">
+    <div>
+      <button id="add-project-btn">Add Projects</button>
+    </div>
+    <div>
+      <h2></h2>
+      <ul></ul>
+    </div>
+  </template>
+
+  <!-- Template Project Default -->
+  <template id="project-default-details">
+    <div>
+      <h1></h1>
+      <button id="task-add">New Task</button>
+      <hr />
+      <ul></ul>
+    </div>
+  </template>
+
+  <template id="header">
+    <header>
+      <h1>App</h1>
+    </header>
+  </template>
+
+  <template id="footer">
+    <footer>
+      <svg id="mobile-nav-todos" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="lucide lucide-clipboard-list-icon lucide-clipboard-list">
+        <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+        <path d="M12 11h4" />
+        <path d="M12 16h4" />
+        <path d="M8 11h.01" />
+        <path d="M8 16h.01" />
+      </svg>
+      <svg id="mobile-nav-projects" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="lucide lucide-folder-kanban-icon lucide-folder-kanban">
+        <path
+          d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z" />
+        <path d="M8 10v4" />
+        <path d="M12 10v2" />
+        <path d="M16 10v6" />
+      </svg>
+    </footer>
+  </template>
+</body>
+
+</html>
