@@ -1,4 +1,4 @@
-import "./style.css";
-import { App } from "./App";
-const rootElement = document.querySelector('#root')
-App(rootElement)
+import "./styles/main.css"
+import { initApp } from "./app/init"
+
+document.addEventListener("DOMContentLoaded", initApp)
