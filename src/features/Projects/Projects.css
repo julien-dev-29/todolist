@@ -1,0 +1,9 @@
+.project {
+  padding: 24px;
+  flex: 1;
+  width: 100%;
+}
+
+.project > ul {
+  list-style: none;
+}

@@ -1,7 +1,8 @@
-import { router } from "./router"
-import { initStore } from "./store"
+import { initStore, setState } from "./store";
+import { renderApp } from "../pages/App";
 
 export function initApp() {
-  initStore()
-  router()
+  initStore();
+  renderApp();
+  setState({});
 }
