@@ -24,10 +24,10 @@ export function Drawer() {
     drawer.querySelectorAll("span[data-project-id]").forEach((link) => {
       link.onclick = () => {
         toggleDrawer()
-        const main = document.querySelector(".projects");
-        main.replaceChildren()
+        const project = document.querySelector(".projects");
+        project.replaceChildren()
         console.log(link.dataset.projectId);
-        main.append(renderProject(getState()));
+        project.append(renderProject(getState(), link.dataset.projectId));
       };
     });
     drawer.classList.toggle("open", state.drawerOpen);

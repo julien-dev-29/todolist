@@ -6,6 +6,7 @@ export function Header() {
   const el = document.createElement("header");
   el.classList.add("header");
   const button = document.createElement("button");
+  button.classList.add('drawer-btn')
   button.textContent = "☰";
   button.onclick = toggleDrawer;
   const h1 = document.createElement("h1");

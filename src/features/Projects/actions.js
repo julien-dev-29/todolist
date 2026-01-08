@@ -15,7 +15,3 @@ export function deleteProject(id) {
     todos: todos.filter((todo) => todo.id !== id),
   });
 }
-
-export function getProject(id) {
-  const { todos } = getState();
-}
