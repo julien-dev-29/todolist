@@ -27,7 +27,6 @@ export function renderTodo() {
     });
 
     todosElement.querySelectorAll("button[data-del]").forEach((btn) => {
-      console.log("yolo les kikis");
       btn.onclick = () => deleteTodo(btn.dataset.del);
     });
   });

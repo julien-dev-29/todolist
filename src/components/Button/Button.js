@@ -1,8 +1,9 @@
+import { getState, setState } from "../../app/store";
 import "./Button.css";
 
 export function Button() {
   const el = document.createElement("div");
-  el.classList.add('btn')
+  el.classList.add("btn");
   el.innerHTML = `<svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -18,5 +19,10 @@ export function Button() {
       <path d="M5 12h14" />
       <path d="M12 5v14" />
     </svg>`;
+  el.onclick = () => {
+    setState({ activeDisplay: "todoForm" });
+    console.log(getState());
+  }
+  console.log(getState());
   return el;
 }

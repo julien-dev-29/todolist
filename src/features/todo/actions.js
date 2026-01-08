@@ -2,7 +2,6 @@ import { getState, setState } from "../../app/store";
 
 export function addTodo(text) {
   const { todos } = getState();
-  console.log(text);
   setState({
     todos: [...todos, { id: Date.now(), text, done: false }],
   });

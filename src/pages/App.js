@@ -1,18 +1,28 @@
-import './App.css'
+import "./App.css";
 import { Header } from "../components/Header/Header";
+import { Drawer } from "../features/Drawer/Drawer";
 import { Footer } from "../components/Footer/Footer";
-import { Button } from '../components/Button/Button';
-import { Drawer } from '../features/Drawer/Drawer';
+import { Button } from "../components/Button/Button";
+import { ProjectContainer } from "../features/Projects/ProjectContainer";
+import { TodoForm } from "../components/TodoForm/TodoForm";
+import { subscribe } from "../app/store";
 export function renderApp() {
-  const app = document.querySelector("#app");
-  const main = document.createElement('div')
-  const projects = document.createElement('div')
-  projects.classList.add('projects')
-  main.classList.add('main')
+  const app = document.getElementById("app");
+  const main = document.createElement("main");
+  main.classList.add("main");
   app.append(Header());
-  app.append(main)
+  app.append(main);
   main.append(Drawer());
-  main.append(projects)
-  app.append(Button())
-  app.append(Footer())
+  subscribe((state) => {
+    if (state.activeDisplay == null || state.activeDisplay == "project") {
+      if (main.childNodes.length > 1) main.removeChild(main.lastElementChild);
+      main.append(ProjectContainer());
+    }
+    if (state.activeDisplay == "todoForm") {
+      if (main.childNodes.length > 1) main.removeChild(main.lastElementChild);
+      main.append(TodoForm());
+    }
+  });
+  app.append(Button());
+  app.append(Footer());
 }

@@ -1,9 +1,22 @@
-.project {
+.projects {
   padding: 24px;
   flex: 1;
   width: 100%;
 }
 
-.project > ul {
+.projects > ul {
   list-style: none;
+}
+
+.todos {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }

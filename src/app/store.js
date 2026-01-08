@@ -1,41 +1,78 @@
-let state = {};
-let listener = null;
+let state = {
+  count: 0,
+  activeProjectId: null,
+  activeDisplay: null,
+  drawerOpen: false,
+  projects: [
+    {
+      id: crypto.randomUUID(),
+      title: "Aller à la plage",
+      todos: [
+        {
+          id: crypto.randomUUID(),
+          title: "todo1",
+          description: "Acheter de la crême solaire pour les pieds",
+          dueDate: Date.now(),
+          priroty: "low",
+        },
+        {
+          id: crypto.randomUUID(),
+          title: "todo2",
+          description: "Acheter de la crême solaire pour les mains",
+          dueDate: Date.now(),
+          priroty: "low",
+        },
+        {
+          id: crypto.randomUUID(),
+          title: "todo3",
+          description: "Acheter de la crême solaire pour le cucul",
+          dueDate: Date.now(),
+          priroty: "low",
+        },
+      ],
+    },
+    {
+      id: crypto.randomUUID(),
+      title: "Aller sur la lune",
+      todos: [
+        {
+          id: crypto.randomUUID(),
+          title: "todo1",
+          description: "Acheter de la crême lunaire pour les pieds",
+          dueDate: Date.now(),
+          priroty: "low",
+        },
+        {
+          id: crypto.randomUUID(),
+          title: "todo2",
+          description: "Acheter de la crême lunaire pour les mains",
+          dueDate: Date.now(),
+          priroty: "low",
+        },
+        {
+          id: crypto.randomUUID(),
+          title: "todo3",
+          description: "Acheter de la crême lunaire pour le cucul",
+          dueDate: Date.now(),
+          priroty: "low",
+        },
+      ],
+    },
+  ],
+};
 
-export function initStore() {
-  state = {
-    projects: [
-      {
-        id: crypto.randomUUID(),
-        title: "Vacances à prout land",
-        todos: [],
-      },
-      {
-        id: crypto.randomUUID(),
-        title: "Sortie à la mer",
-        todos: [],
-      },
-      {
-        id: crypto.randomUUID(),
-        title: "Cabane au fond du jardin",
-        todos: [],
-      },
-    ],
-    drawerOpen: false
-  };
-}
-
-export function subscribe(fn) {
-  listener = fn;
-}
-
-export function setState(next) {
-  state = { ...state, ...next };
-  if (listener) {
-    listener(state);
-  }
-}
+const listeners = [];
 
 export function getState() {
   return state;
 }
 
+export function setState(partialState) {
+  state = { ...state, ...partialState };
+  listeners.forEach((fn) => fn(state));
+}
+
+export function subscribe(fn) {
+  listeners.push(fn);
+  fn(state);
+}
