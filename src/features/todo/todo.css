@@ -1,0 +1,9 @@
+.todos {
+  flex: 1;
+  width: 100%;
+  padding: 32px;
+}
+
+.todos > ul {
+  list-style: none;
+}

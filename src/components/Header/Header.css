@@ -1,0 +1,46 @@
+.header {
+    width: 100%;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-color-2);
+    box-shadow: var(--box-shadow);
+}
+
+.header h1 {
+    color: var(--indigo-solid-color)
+}
+
+/* Drawer button */
+.header .drawer-btn {
+    background-color: var(--btn-bg-color-1);
+    color: var(--text-color);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    padding: 6px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.theme-toggle[aria-checked="true"] {
+    background-color: var(--btn-bg-color-2);
+    color: white;
+}
+
+.theme-toggle:focus,
+.header .drawer-btn:focus {
+    outline: 2px solid var(--indigo-solid-color);
+    outline-offset: 2px;
+}

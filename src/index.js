@@ -1,4 +1,8 @@
-import "./styles/main.css"
-import { initApp } from "./app/init"
+import "./styles/main.css";
+import { initTheme } from "./theme";
+import { initApp } from "./app/init";
 
-document.addEventListener("DOMContentLoaded", initApp)
+// apply theme early so styles are correct before render
+initTheme();
+
+document.addEventListener("DOMContentLoaded", initApp);
