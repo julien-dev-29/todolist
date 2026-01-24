@@ -1,39 +1,131 @@
-:root {
-  --bg-color-1: #fcfcfc;
-  --bg-color-2: #f9f9f9;
-  --bg-drawer: #f0f0f0;
-  --text-color: #202020;
-  --text-secondary-color: #646464;
-  --box-shadow: 2px 2px 10px rgba(122, 122, 122, 0.2);
-  --border-color-1: #d9d9d9;
-  --btn-bg-color-1: #8d8d8d;
-  --btn-bg-color-2: #838383;
-  --indigo-solid-color: #3e63dd;
+@import "tailwindcss";
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "todoapp";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-primary: oklch(59% 0.18 238);
+  --color-primary-content: oklch(98% 0.01 238);
+  --color-success: oklch(67% 0.20 152);
+  --color-success-content: oklch(98% 0.01 152);
+  --color-error: oklch(63% 0.22 25);
+  --color-error-content: oklch(98% 0.01 25);
+  
+  --color-base-100: oklch(98% 0.005 240);
+  --color-base-200: oklch(95% 0.008 240);
+  --color-base-300: oklch(92% 0.01 240);
+  --color-base-content: oklch(27% 0.03 240);
+  
+  --color-neutral: oklch(50% 0.02 240);
+  --color-neutral-content: oklch(98% 0.01 240);
+
+  --radius-field: 0.375rem;
+  --radius-box: 0.5rem;
+  --border: 1px;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--color-base-100);
+    color: var(--color-base-content);
+  }
 }
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: var(--bg-color-1);
-  color: var(--text-color);
-  font-size: 1.1rem;
+@layer components {
+  .app-header {
+    @apply bg-primary text-white py-8 px-6 shadow-lg;
+  }
+
+  .app-container {
+    @apply container mx-auto px-6 py-8 max-w-7xl;
+  }
+
+  .projects-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6;
+  }
+
+  .kanban-board {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-5 mt-6;
+  }
+
+  .kanban-column {
+    @apply card bg-base-100 p-4 min-h-96 border border-base-300;
+  }
+
+  .kanban-column-header {
+    @apply text-base font-bold text-base-content mb-4 pb-3 border-b-2 border-base-300;
+  }
+
+  .kanban-cards-container {
+    @apply flex flex-col gap-3 flex-1 min-h-12 p-1 rounded transition-colors;
+  }
+
+  .kanban-cards-container.drag-over {
+    @apply bg-primary/10 border-2 border-dashed border-primary;
+  }
+
+  .kanban-card {
+    @apply card card-xs card-body  border border-base-300 cursor-grab transition-all hover:shadow-lg hover:-translate-y-0.5 select-none;
+  }
+
+  .kanban-card.dragging {
+    @apply opacity-50 cursor-grabbing bg-primary/10 border-2 border-dashed border-primary;
+  }
+
+  .kanban-card-content {
+    @apply flex justify-between items-start gap-2;
+  }
+
+  .kanban-card-title {
+    @apply text-sm text-base-content flex-1 break-words;
+  }
+
+  .project-card {
+    @apply card bg-base-200 transition-all hover:shadow-xl hover:-translate-y-1 cursor-pointer border border-teal-900;
+  }
+
+  .project-card-body {
+    @apply card-body;
+  }
+
+  .project-card-header {
+    @apply flex items-center justify-between gap-3 mb-3;
+  }
+
+  .project-name {
+    @apply text-lg font-bold text-base-content flex-1 truncate;
+  }
+
+  .action-buttons {
+    @apply flex items-center gap-3;
+  }
+
+  .form-section {
+    @apply max-w-2xl;
+  }
+
+  .form-group {
+    @apply mb-5;
+  }
+
+  .form-label {
+    @apply label text-sm font-semibold text-base-content;
+  }
+
+  .button-group {
+    @apply flex gap-3;
+  }
 }
 
-/* Dark theme overrides */
-.theme-dark {
-  --bg-color-1: #111111;
-  --bg-color-2: #191919;
-  --bg-drawer: #222222;
-  --text-color: #EEEEEE;
-  --text-secondary-color: #B4B4B4;
-  --box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
-  --border-color-1: #3A3A3A;
-  --btn-bg-color-1: #6E6E6E;
-  --btn-bg-color-2: #7B7B7B;
-  --indigo-solid-color: #3E63DD;
+@utility drag-grabbing {
+  cursor: grabbing;
 }
