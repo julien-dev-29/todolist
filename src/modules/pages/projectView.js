@@ -247,6 +247,13 @@ function createKanbanCard(todo, project, projectId) {
   $content.append($title, $footer);
   $card.append($content);
 
+  $card.style.cursor = "pointer";
+  $card.onclick = (e) => {
+    if (!e.target.closest("button")) {
+      render("todo-details", projectId, todo.id);
+    }
+  };
+
   $card.ondragstart = (e) => {
     $card.classList.add("dragging");
     e.dataTransfer.effectAllowed = "move";

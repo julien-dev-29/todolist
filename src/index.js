@@ -2,7 +2,7 @@ import "./styles/main.css";
 import { renderAllTodos } from "./modules/pages/allTodos";
 import { renderProjectView } from "./modules/pages/projectView";
 import { renderProjectEdit } from "./modules/pages/projectEdit";
-import { renderTodoDetails } from "./modules/components/todo/todoDetails";
+import { renderTodoDetails } from "./modules/components/todo/todo-details/todoDetails";
 
 let projects = [];
 
