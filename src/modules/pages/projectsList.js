@@ -1,5 +1,4 @@
 import { render } from "../..";
-import { createTrashIcon } from "../../utils/dom";
 
 export function renderProjectsList(projects) {
   const $container = document.querySelector("#app");
@@ -32,11 +31,11 @@ function createProject(project, onDelete) {
   $listItem.dataset.projectId = project.id;
 
   const $cardBody = document.createElement("div");
-  $cardBody.className = "project-card-body";
+  $cardBody.className = "card-body";
 
   // Header with name and todo count
   const $header = document.createElement("div");
-  $header.className = "project-card-header";
+  $header.className = "card-header flex";
 
   const $projectName = document.createElement("span");
   $projectName.className = "project-name";
@@ -50,12 +49,12 @@ function createProject(project, onDelete) {
 
   // Action column
   const $actionColumn = document.createElement("div");
-  $actionColumn.className = "flex justify-end";
+  $actionColumn.className = "flex justify-start";
 
   const $deleteBtn = document.createElement("button");
   $deleteBtn.className = "btn btn-error btn-circle btn-sm";
   $deleteBtn.setAttribute("aria-label", "Delete project");
-  $deleteBtn.appendChild(createTrashIcon(16));
+  $deleteBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`;
   $deleteBtn.onclick = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -110,4 +109,3 @@ function createProjectForm(projects) {
 
   return $form;
 }
-

@@ -1,5 +1,4 @@
 import { render } from "../..";
-import { createTrashIcon } from "../../utils/dom";
 
 export function createKanbanBoard(project, projectId) {
   const $board = document.createElement("div");
@@ -30,20 +29,13 @@ export function createKanbanBoard(project, projectId) {
 
     filteredTodos.forEach((todo) => {
       $cards.append(
-        createKanbanCard(
-          todo,
-          () => {
-            const index = project.todos.findIndex((t) => t.id === todo.id);
-            if (index > -1) {
-              project.todos.splice(index, 1);
-            }
-            render("project-details", projectId);
-          },
-          (newStatus) => {
-            todo.status = newStatus;
-            render("project-details", projectId);
-          },
-        ),
+        createKanbanCard(todo, projectId, () => {
+          const index = project.todos.findIndex((t) => t.id === todo.id);
+          if (index > -1) {
+            project.todos.splice(index, 1);
+          }
+          render("project-details", projectId);
+        }),
       );
     });
 
@@ -101,7 +93,6 @@ export function createKanbanBoard(project, projectId) {
         }
       }
     };
-
     $column.append($cards);
     $board.append($column);
   });
@@ -125,7 +116,8 @@ function createKanbanCard(todo, onDelete) {
   const $deleteBtn = document.createElement("button");
   $deleteBtn.className = "btn btn-error btn-circle btn-xs flex-shrink-0";
   $deleteBtn.setAttribute("aria-label", "Delete todo");
-  $deleteBtn.appendChild(createTrashIcon(14));
+  $deleteBtn.innerHTML =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
   $deleteBtn.onclick = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -149,6 +141,10 @@ function createKanbanCard(todo, onDelete) {
       .forEach((container) => {
         container.classList.remove("drag-over");
       });
+  };
+  $card.ondblclick = (e) => {
+    console.log(e);
+    render("todo-details", todo.id);
   };
 
   $card.ondragover = (e) => {
